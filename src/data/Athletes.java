@@ -1,31 +1,35 @@
 package data;
 
-import java.math.BigDecimal;
 import java.time.Duration;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 public class Athletes {
 
     private Long id;
     private String name;
     private String country;
-    private Gander gander;
+    private Gender gender;
     private final LocalDate dateOfBirth;
     private static Long counterOfId = 0L;
-    private static final int minimalAge = 0;
     private Duration seconds;
-    private static Duration secondsToQualify;
+    private Duration totalSeconds = Duration.ZERO;
 
-    public Athletes(String name, String country, Gander gender, LocalDate localDate, Duration seconds) {
+    public Athletes(String name, String country, Gender gender, LocalDate localDate, Duration seconds) {
         this.id = ++counterOfId;
         this.name = name;
         this.country = country;
-        this.gander = gender;
+        this.gender = gender;
         this.dateOfBirth = localDate;
         this.seconds = seconds;
     }
 
+    public Duration getTotalSeconds() {
+        return totalSeconds;
+    }
+
+    public void setTotalSeconds(Duration totalSeconds) {
+        this.totalSeconds = totalSeconds;
+    }
 
     public Athletes(LocalDate dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
@@ -33,14 +37,6 @@ public class Athletes {
 
     public Long getId() {
         return id;
-    }
-
-    public static Duration getSecondsToQualify() {
-        return secondsToQualify;
-    }
-
-    public static void setSecondsToQualify(Duration secondsToQualify) {
-        Athletes.secondsToQualify = secondsToQualify;
     }
 
     public String getName() {
@@ -59,12 +55,12 @@ public class Athletes {
         this.country = country;
     }
 
-    public Gander getGander() {
-        return gander;
+    public Gender getGander() {
+        return gender;
     }
 
-    public void setGander(Gander gander) {
-        this.gander = gander;
+    public void setGander(Gender gender) {
+        this.gender = gender;
     }
 
     public LocalDate getDateOfBirth() {
@@ -73,10 +69,6 @@ public class Athletes {
 
     public Long getCounterOfId() {
         return counterOfId;
-    }
-
-    public void setCounterOfId(Long counterOfId) {
-        this.counterOfId = counterOfId;
     }
 
     public void setId(Long id) {
@@ -91,15 +83,17 @@ public class Athletes {
         this.seconds = seconds;
     }
 
+
     @Override
     public String toString() {
         return "Athletes{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", country='" + country + '\'' +
-                ", gander=" + gander +
+                ", gander=" + gender +
                 ", dateOfBirth=" + dateOfBirth +
-                ", seconds=" + String.format("%.3f",seconds.toMillis() / 1000.0) + "S" +
+                ", seconds=" + seconds +
+                ", totalSeconds=" + totalSeconds +
                 '}';
     }
 }
