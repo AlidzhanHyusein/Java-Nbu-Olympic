@@ -1,7 +1,7 @@
 package service;
 
-import data.Athletes;
-import data.Rules;
+import data.SkiAthletes;
+import data.SkiRules;
 
 import java.time.Duration;
 import java.time.LocalDate;
@@ -12,29 +12,30 @@ import java.util.stream.Collectors;
 
 public class SkiService {
 
-    public List<Athletes> firstMansh(List<Athletes> athletesList) {
+    public List<SkiAthletes> firstMansh(List<SkiAthletes> athletesList) {
         if (athletesList.isEmpty()) return List.of();
 
         return ageOfAthletes(athletesList).stream()
-                .sorted(Comparator.comparing(Athletes::getSeconds))
+                .filter(athletes -> athletes.getSeconds().compareTo(SkiRules.getSecondsToQualify()) <= 0)
+                .sorted(Comparator.comparing(SkiAthletes::getSeconds))
                 .limit(30)
                 .peek(a -> a.setTotalSeconds(a.getSeconds()))
                 .collect(Collectors.toList());
     }
 
-    public List<Athletes> secondMansh(List<Athletes> qualifiedAthletes) {
+    public List<SkiAthletes> secondMansh(List<SkiAthletes> qualifiedAthletes) {
         qualifiedAthletes.forEach(a ->
                 a.setTotalSeconds(a.getTotalSeconds().plus(a.getSeconds()))
         );
 
         return qualifiedAthletes.stream()
-                .sorted(Comparator.comparing(Athletes::getTotalSeconds))
+                .sorted(Comparator.comparing(SkiAthletes::getTotalSeconds))
                 .collect(Collectors.toList());
     }
 
-    public List<Athletes> winnerOfTheRace(List<Athletes> athletes) {
+    public List<SkiAthletes> winnerOfTheRace(List<SkiAthletes> athletes) {
         Duration minTime = athletes.stream()
-                .map(Athletes::getTotalSeconds)
+                .map(SkiAthletes::getTotalSeconds)
                 .min(Comparator.naturalOrder())
                 .orElseThrow(() -> new IllegalArgumentException("Athlete list is empty"));
 
@@ -43,9 +44,9 @@ public class SkiService {
                 .collect(Collectors.toList());
     }
 
-    public List<Athletes> ageOfAthletes(List<Athletes> athletes) {
+    public List<SkiAthletes> ageOfAthletes(List<SkiAthletes> athletes) {
         return athletes.stream()
-                .filter(a -> Period.between(a.getDateOfBirth(), LocalDate.now()).getYears() >= Rules.getMinimumAge())
+                .filter(a -> Period.between(a.getDateOfBirth(), LocalDate.now()).getYears() >= SkiRules.getMinimumAge())
                 .collect(Collectors.toList());
     }
 }

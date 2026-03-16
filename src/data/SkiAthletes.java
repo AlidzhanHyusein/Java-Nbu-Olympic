@@ -3,7 +3,7 @@ package data;
 import java.time.Duration;
 import java.time.LocalDate;
 
-public class Athletes {
+public class SkiAthletes {
 
     private Long id;
     private String name;
@@ -14,7 +14,7 @@ public class Athletes {
     private Duration seconds;
     private Duration totalSeconds = Duration.ZERO;
 
-    public Athletes(String name, String country, Gender gender, LocalDate localDate, Duration seconds) {
+    public SkiAthletes(String name, String country, Gender gender, LocalDate localDate, Duration seconds) {
         this.id = ++counterOfId;
         this.name = name;
         this.country = country;
@@ -31,7 +31,7 @@ public class Athletes {
         this.totalSeconds = totalSeconds;
     }
 
-    public Athletes(LocalDate dateOfBirth) {
+    public SkiAthletes(LocalDate dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
     }
 
