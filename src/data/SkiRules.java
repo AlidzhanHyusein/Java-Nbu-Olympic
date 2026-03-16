@@ -1,9 +1,8 @@
 package data;
 
 import java.time.Duration;
-import java.util.List;
 
-public class Rules {
+public class SkiRules {
 
     private static Integer minimumAge;
 
@@ -15,7 +14,7 @@ public class Rules {
     }
 
     public static void setMinimumAge(Integer minimumAge) {
-        Rules.minimumAge = minimumAge;
+        SkiRules.minimumAge = minimumAge;
     }
 
     public static Duration getSecondsToQualify() {
@@ -23,6 +22,6 @@ public class Rules {
     }
 
     public static void setSecondsToQualify(Duration secondsToQualify) {
-        Rules.secondsToQualify = secondsToQualify;
+        SkiRules.secondsToQualify = secondsToQualify;
     }
 }
